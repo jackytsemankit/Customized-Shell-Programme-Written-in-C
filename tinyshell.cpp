@@ -1,3 +1,7 @@
+//Group Members:
+//Tse Man Kit 3035477757
+//Leung Lok Yi 3035473359
+
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
@@ -7,8 +11,7 @@
 #include <cstring>
 #include <list>
 #include <algorithm>
-
-
+#include <sys/wait.h>
 #include <chrono>
 using namespace std;
 using namespace std::chrono;
@@ -22,7 +25,7 @@ typedef struct h{
 bool compare (const h &,const h&);
 
 int main(){
-	
+	pid_t pid;
 	list<h>l;
 	while(true){
 		cout<<"tinyshell>";
@@ -48,8 +51,11 @@ int main(){
 			}			
 		}//-sbu
 		else{
-		const char* command=s.c_str();
-		system(command);
+			const char* command=s.c_str();
+			pid = fork();//start of fork()
+			if(pid == 0){system(command);exit(0);}//in child
+			else if (pid>0) {waitpid(pid,NULL,0);}//in parent, wait for child
+			else {return 1;}//if fork fails
 		}	
 		high_resolution_clock::time_point t2= high_resolution_clock::now();
 		double time=duration_cast<milliseconds>(t2-t1).count();
