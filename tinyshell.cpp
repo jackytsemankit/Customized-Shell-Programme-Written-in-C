@@ -1,6 +1,6 @@
 //Group Members:
-//Tse Man Kit 3035477757
-//Leung Lok Yi 3035473359
+//Tse Man Kit
+
 
 #include <stdio.h>
 #include <iostream>
